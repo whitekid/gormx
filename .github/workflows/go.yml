@@ -1,0 +1,25 @@
+name: Go
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "stable"
+
+      - uses: actions/checkout@v3
+
+      - name: Test
+        run: make test
+        env:
+          GX_SKIP_SQL_SQLITE: true
+          GX_SKIP_SQL_MYSQL: true
+          GX_SKIP_SQL_PGSQL: true
